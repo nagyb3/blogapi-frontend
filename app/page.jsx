@@ -1,6 +1,5 @@
 "use client"
 
-import Image from 'next/image'
 import React from 'react';
 
 export default function Home() {
@@ -27,7 +26,12 @@ export default function Home() {
 
   return (
     <main className="min-h-screen items-center">
-    
+      {allPosts.map(item => {
+        return <div key={item._id}>
+          <h2>{item.title}</h2>
+          <p>{item.text}</p>
+        </div>
+      })}
     
     </main>
   )

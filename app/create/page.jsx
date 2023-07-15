@@ -24,7 +24,7 @@ export default function Create() {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token')
             },
             body: {
-                'Post-Text': editorRef.current.getContent()
+                'posttext': editorRef.current.getContent()
             }
         }).then((response) => {
             return response;

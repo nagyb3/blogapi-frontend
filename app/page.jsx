@@ -25,10 +25,12 @@ export default function Home() {
   // console.log(allPosts)
 
   return (
-    <main className="min-h-screen items-center">
+    <main className="min-h-screen items-center m-5">
+      <h1 className='text-center font-bold text-2xl m-10'>nagyb3's blog</h1>
+      <p className='text-xl font-bold m-2'>ALL OF THE POSTS:</p>
       {allPosts.map(item => {
-        return <div key={item._id}>
-          <h2>{item.title}</h2>
+        return <div key={item._id} className='rounded-lg flex flex-col gap-10 border-2 dark:border-white border-black px-5 py-10 m-5'>
+          <h2 className='font-bold text-2xl'>{item.title}</h2>
           <p>{item.text}</p>
         </div>
       })}

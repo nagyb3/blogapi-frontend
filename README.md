@@ -1,4 +1,4 @@
-#blogapi
+#blogapi-frontend
 
 NextJS app which interacts with my [blog's API](https://github.com/nagyb3/blogapi).
 

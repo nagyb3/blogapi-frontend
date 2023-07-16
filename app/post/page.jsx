@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import HtmlReactParser from "html-react-parser";
 
 export default function Post(props) {
     
@@ -57,7 +58,7 @@ export default function Post(props) {
                 <div>
                     <div className="border-2 border-black dark:border-white p-5">
                         <h1 className="font-bold text-3xl m-5">{postData.post.title}</h1>
-                        <p>{postData.post.text}</p>
+                        <p>{HtmlReactParser(postData.post.text)}</p>
                     </div>
                     <div>
                         <p className="text-lg m-3">Leave a comment:</p>

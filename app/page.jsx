@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react';
+import HtmlReactParser from 'html-react-parser';
 
 export default function Home() {
   const [allPosts, setAllPosts] = React.useState([]);
@@ -27,7 +28,7 @@ export default function Home() {
       {allPosts.map(item => {
         return <div key={item._id} className='rounded-lg flex flex-col gap-10 border-2 dark:border-white border-black px-5 py-10 m-5'>
           <h2 className='font-bold text-2xl'><a href={"/post?postid=" + item._id}>{item.title}</a></h2>
-          <p>{item.text}</p>
+          {HtmlReactParser(item.text)}
         </div>
       })}
     

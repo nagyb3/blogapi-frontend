@@ -51,7 +51,7 @@ export default function Post(props) {
     console.log(newCommentText)
 
     return (
-        <div className="min-h-full m-5">
+        <div className="min-h-screen p-5">
             <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3's blog</a></h1>
             {postData && 
                 <div>

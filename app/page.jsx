@@ -21,7 +21,7 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="min-h-screen items-center m-5">
+    <main className="min-h-screen items-center p-5">
       <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3's blog</a></h1>
       <p className='text-xl font-bold m-2'>ALL OF THE POSTS:</p>
       {allPosts.map(item => {

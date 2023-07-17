@@ -33,10 +33,6 @@ export default function Edit() {
             });
     }, []);
 
-    // console.log(titleState);
-    // console.log(postText);
-    // console.log(editedPostIsPublic);
-
     const putRequest = () => {
         fetch("http://localhost:5000/posts/edit", {
             method: "PUT",
@@ -46,7 +42,7 @@ export default function Edit() {
             body: JSON.stringify({
                 postid: postId,
                 title: titleState,
-                textcontent: postText,
+                textcontent: editorRef.current.getContent(),
                 isPublic: editedPostIsPublic
             })
         }).then(response => {
@@ -60,13 +56,14 @@ export default function Edit() {
 
     return (
         <div>
+            <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3's blog EDIT POST</a></h1>
             <label htmlFor="ispublic">Post is public:</label>
             <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
             <div>
                 <Editor
                     apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
                     onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue="<p>This is the initial content of the editor.</p>"
+                    initialValue={postText}
                     init={{
                     height: 500,
                     menubar: false,

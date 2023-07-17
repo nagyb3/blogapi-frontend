@@ -54,9 +54,22 @@ export default function Edit() {
         })
     }
 
+    function deletePost() {
+        fetch(`http://localhost:5000/posts/${postId}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                postid: postId
+            })
+        });
+    }
+
     return (
         <div>
             <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3's blog EDIT POST</a></h1>
+            <button className="bg-white text-black p-3 font-bold rounded block" onClick={deletePost}>DELETE THIS POST</button>
             <label htmlFor="ispublic">Post is public:</label>
             <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
             <div>

@@ -1,0 +1,91 @@
+"use client"
+
+import React, { useRef } from "react";
+import { Editor } from '@tinymce/tinymce-react';
+
+export default function Edit() {
+
+    const editorRef = useRef(null);
+    
+    const [postId, setPostId] = React.useState(null);
+
+    const [postText, setPostText] = React.useState(null);
+
+    const [editedPostIsPublic, setEditedPostIsPublic] = React.useState(true);
+
+    const [titleState, setTitleState] = React.useState(null);
+
+    React.useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const postIdParam = params.get("postid");
+        setPostId(postIdParam);
+        fetch(`http://localhost:5000/posts/${postIdParam}`)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                setTitleState(data.post.title);
+                setPostText(data.post.text);
+                setEditedPostIsPublic(data.post.is_public);
+            })
+            .catch(error => {
+                console.error(error)
+            });
+    }, []);
+
+    // console.log(titleState);
+    // console.log(postText);
+    // console.log(editedPostIsPublic);
+
+    const putRequest = () => {
+        fetch("http://localhost:5000/posts/edit", {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                postid: postId,
+                title: titleState,
+                textcontent: postText,
+                isPublic: editedPostIsPublic
+            })
+        }).then(response => {
+            return response
+        }).then(data => {
+            console.log(data);
+        }).then(error => {
+            console.error(error);
+        })
+    }
+
+    return (
+        <div>
+            <label htmlFor="ispublic">Post is public:</label>
+            <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
+            <div>
+                <Editor
+                    apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
+                    onInit={(evt, editor) => editorRef.current = editor}
+                    initialValue="<p>This is the initial content of the editor.</p>"
+                    init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                    ],
+                    toolbar: 'undo redo | blocks | ' +
+                        'bold italic forecolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    }}
+                />
+            </div>
+            <button onClick={putRequest} className="m-10 bg-white text-black p-3 rounded font-bold">
+                PUT REQUEST
+            </button>
+        </div>
+    )
+}

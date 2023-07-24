@@ -17,7 +17,7 @@ export default function SignUp() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: signUpEmail, 
+                username: signUpEmail, 
                 password: signUpPassword
             })
         }).then(response => {
@@ -36,12 +36,12 @@ export default function SignUp() {
     }
     
     return (
-        <div>
-            <h1 className="text-center font-bold text-2xl m-10">SIGNUP to nagyb3's blog</h1>
+        <div className="min-h-screen p-10">
+            <h1 className="text-center font-bold text-2xl">SIGNUP to nagyb3's blog</h1>
             <form onSubmit={e => handleSubmit(e)} className="flex flex-col items-center">
                 <div className="m-5 w-fit">
-                    <label htmlFor="email">Email:</label>
-                    <input className="m-2 p-1 rounded text-black" type="email" name="email" id="email" value={signUpEmail}
+                    <label htmlFor="username">Username:</label>
+                    <input className="m-2 p-1 rounded text-black" type="text" name="username" id="username" value={signUpEmail}
                     onChange={e => setSignUpEmail(e.target.value)} />    
                 </div>
                 <div className="m-5 w-fit">

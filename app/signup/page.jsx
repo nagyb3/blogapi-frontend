@@ -37,7 +37,7 @@ export default function SignUp() {
     
     return (
         <div className="min-h-screen">
-            <h1 className='text-center font-bold text-2xl m-12'><a href="/">nagyb3's blog</a></h1>
+            <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3's blog</a></h1>
             <h1 className="text-center font-bold text-2xl m-10">SIGNUP</h1>
             <form onSubmit={e => handleSubmit(e)} className="flex flex-col items-center">
                 <div className="m-5 w-fit">

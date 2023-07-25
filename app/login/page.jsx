@@ -25,6 +25,7 @@ export default function Login() {
             return response.json();
         }).then(data => {
             localStorage.setItem('access_token', data.token);
+            localStorage.setItem('username', loginEmail);
             window.location.href = '/';
         }).catch(error => {
             console.error(error);

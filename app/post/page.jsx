@@ -62,7 +62,7 @@ export default function Post(props) {
     return (
         <div className="min-h-screen">
             <div className='flex justify-between items-center border-black border-b-2 dark:border-white'>
-                <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3's blog</a></h1>
+                <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3&apos;s blog</a></h1>
                 {isLoggedIn ? 
                 <button className='m-12' onClick={handleSignOut}>
                     Sign Out

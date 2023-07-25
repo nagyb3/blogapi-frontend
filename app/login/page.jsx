@@ -34,7 +34,7 @@ export default function Login() {
     
     return (
         <div className="min-h-screen">
-            <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3's blog</a></h1>
+            <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3&apos;s blog</a></h1>
             <h1 className="text-center font-bold text-2xl m-10">LOGIN</h1>
             <form onSubmit={e => handleSubmit(e)} className="flex flex-col items-center">
                 <div className="m-5">
@@ -50,7 +50,7 @@ export default function Login() {
                 <input className="cursor-pointer dark:bg-white bg-gray-800 dark:text-black text-white font-semibold px-4 py-3 rounded m-10 text-lg" type="submit" value="LOGIN" />
             </form>
             <div className="flex justify-center gap-4 items-center m-24">
-                <p>Don't have an account yet?</p>
+                <p>Don&apos;t have an account yet?</p>
                 <button className="dark:bg-white bg-gray-800 p-2 dark:text-black text-white font-semibold rounded">
                     <a href="/signup">Sign Up!</a>
                 </button>

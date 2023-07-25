@@ -36,8 +36,9 @@ export default function SignUp() {
     }
     
     return (
-        <div className="min-h-screen p-10">
-            <h1 className="text-center font-bold text-2xl">SIGNUP to nagyb3's blog</h1>
+        <div className="min-h-screen">
+            <h1 className='text-center font-bold text-2xl m-12'><a href="/">nagyb3's blog</a></h1>
+            <h1 className="text-center font-bold text-2xl m-10">SIGNUP</h1>
             <form onSubmit={e => handleSubmit(e)} className="flex flex-col items-center">
                 <div className="m-5 w-fit">
                     <label htmlFor="username">Username:</label>
@@ -49,8 +50,14 @@ export default function SignUp() {
                     <input className="m-2 p-1 rounded text-black" type="password" name="password" id="password" value={signUpPassword}
                     onChange={e => setSignUpPassword(e.target.value)} />
                 </div>
-                <input className="bg-white text-black font-bold p-3 rounded m-10" type="submit" value="SIGNUP" />
+                <input className="dark:bg-white bg-gray-800 dark:text-black text-white font-semibold p-3 rounded m-10" type="submit" value="SIGNUP" />
             </form>
+            <div className="flex justify-center gap-4 items-center mt-24">
+                <p>Or if you have an account:</p>
+                <button className="dark:bg-white bg-gray-800 p-2 dark:text-black text-white font-semibold rounded">
+                    <a href="/login">Log In!</a>
+                </button>
+            </div>
         </div>
     )
 }

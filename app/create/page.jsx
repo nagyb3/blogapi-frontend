@@ -22,7 +22,7 @@ export default function Create() {
     }, [browserHasAccessToken])
 
     const submitPost = () => {
-        fetch("http://localhost:5000/posts/create", { 
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/create`, { 
             method: "POST",
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
@@ -43,7 +43,7 @@ export default function Create() {
     };
 
     const login = () => {
-        fetch('http://localhost:5000/login', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
             method: "POST"
         }).then(response => {
             return response.json();

@@ -11,7 +11,7 @@ export default function SignUp() {
     
     function handleSubmit(e) {
         e.preventDefault();
-        fetch("http://localhost:5000/signup", {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/signup`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

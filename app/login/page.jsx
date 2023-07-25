@@ -11,7 +11,7 @@ export default function Login() {
     function handleSubmit(e) {
         e.preventDefault();
         console.log('asd');
-        fetch('http://localhost:5000/login', {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

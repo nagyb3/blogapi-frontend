@@ -11,7 +11,7 @@ export default function Home() {
   React.useEffect(() => {
     setIsLoggedIn(localStorage.getItem('access_token') !== null);
     console.log(localStorage.getItem('access_token'))
-    const allPostList = fetch('http://localhost:5000/posts', {
+    const allPostList = fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'GET'
     }).then(response =>  {
       if (!response.ok) {

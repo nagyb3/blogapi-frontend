@@ -19,7 +19,7 @@ export default function Edit() {
         const params = new URLSearchParams(window.location.search);
         const postIdParam = params.get("postid");
         setPostId(postIdParam);
-        fetch(`http://localhost:5000/posts/${postIdParam}`)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postIdParam}`)
             .then(response => {
                 return response.json();
             })
@@ -34,7 +34,7 @@ export default function Edit() {
     }, []);
 
     const putRequest = () => {
-        fetch("http://localhost:5000/posts/edit", {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/edit`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export default function Edit() {
     }
 
     function deletePost() {
-        fetch(`http://localhost:5000/posts/${postId}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'

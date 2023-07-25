@@ -18,7 +18,7 @@ export default function Post(props) {
         const params = new URLSearchParams(window.location.search);
         const postId = params.get("postid");
         // console.log('postId');
-        fetch(`http://localhost:5000/posts/${postId}`)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`)
             .then(response => {
                 return response.json();
             }).then(data => {
@@ -37,7 +37,7 @@ export default function Post(props) {
         e.preventDefault();
         setNewCommentEmail('');
         setNewCommentText('');
-        await fetch("http://localhost:5000/comments/create", {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/create`, {
             method: "POST", 
             headers: {
                 'Content-Type': 'application/json',
@@ -51,8 +51,8 @@ export default function Post(props) {
         fetchData();
     };
 
-    console.log(newCommentEmail)
-    console.log(newCommentText)
+    // console.log(newCommentEmail)
+    // console.log(newCommentText)
 
     function handleSignOut() {
         localStorage.removeItem('access_token');

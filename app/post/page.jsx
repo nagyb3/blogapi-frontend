@@ -20,12 +20,10 @@ export default function Post(props) {
         setIsLoggedIn(localStorage.getItem('access_token') !== null);
         const params = new URLSearchParams(window.location.search);
         const postId = params.get("postid");
-        // console.log('postId');
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`)
             .then(response => {
                 return response.json();
             }).then(data => {
-                console.log('data', data);
                 setPostData(data);
             }).catch(error => {
                 console.error(error);
@@ -54,15 +52,10 @@ export default function Post(props) {
         fetchData();
     };
 
-    // console.log(newCommentEmail)
-    // console.log(newCommentText)
-
     function handleSignOut() {
         localStorage.removeItem('access_token');
         setIsLoggedIn(false);
     }
-
-    console.log(postData);
 
     return (
         <div className="min-h-screen">

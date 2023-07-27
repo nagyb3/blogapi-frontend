@@ -48,7 +48,7 @@ export default function Edit() {
         }).then(response => {
             return response
         }).then(data => {
-            console.log(data);
+            
         }).then(error => {
             console.error(error);
         })

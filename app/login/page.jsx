@@ -10,7 +10,6 @@ export default function Login() {
     
     function handleSubmit(e) {
         e.preventDefault();
-        console.log('asd');
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
             method: "POST",
             headers: {
@@ -21,7 +20,6 @@ export default function Login() {
                 password: loginPassword
             })
         }).then(response => {
-            console.log(response)
             return response.json();
         }).then(data => {
             localStorage.setItem('access_token', data.token);

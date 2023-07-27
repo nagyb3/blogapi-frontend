@@ -10,13 +10,7 @@ export default function Create() {
     const [browserHasAccessToken, setBrowserHasAccessToken] = React.useState(false);
 
     const [newTitleState, setNewTitleState] = React.useState("");
-    
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
-        }
-    };
-    
+
     React.useEffect(() => {
         
     }, [browserHasAccessToken])
@@ -33,10 +27,9 @@ export default function Create() {
                 'title': newTitleState
             })
         }).then((response) => {
-            console.log(response);
             return response;
         }).then(data => {
-            console.log(data);
+            
         }).catch(error => {
             console.error(error);
         });
@@ -59,8 +52,6 @@ export default function Create() {
         localStorage.removeItem('access_token');
         setBrowserHasAccessToken(false);
     }
-
-    console.log(browserHasAccessToken)
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center min-w-full p-10 gap-5">

@@ -92,31 +92,27 @@ export default function Post(props) {
                     <div>
                         {isLoggedIn ? 
                         <div>
-                            <p className="text-lg m-3 font-semibold">Leave a comment:</p>
                             <form onSubmit={e => handleSubmit(e)}>
-                                {/* <div className="m-3">
-                                    <label className="m-3" htmlFor="email">Email:</label>
-                                    <input className="text-black" onChange={e => setNewCommentEmail(e.target.value)} 
-                                    type="email" name="email" id="email" value={newCommentEmail}/>    
-                                </div> */}
-                                <div className="m-3 flex items-center">
-                                    <label className="m-3" htmlFor="comment">Your Comment:</label>
+                                <p className="m-5 text-lg font-bold">Comments: </p>
+                                <div className="mb-2 ml-2 flex items-center">
+                                    <label className="m-2" htmlFor="comment">Leave a comment:</label>
                                     <input className="text-black p-2 rounded" onChange={e => setNewCommentText(e.target.value)} type="text" name="text" id="text" value={newCommentText} />
                                     <input className="font-bold text-lg dark:bg-white bg-gray-700 text-white dark:text-black
-                                    px-4 py-2 m-3 rounded" type="submit" value="SEND" />
+                                    px-4 py-2 m-3 rounded" type="submit" value="SEND-&gt;" />
                                 </div>
                             </form>
                         </div>    
                     : 
                         <p className="m-5"><a href="/login">Log in to leave a comment!</a></p>
                     }
-                        <p className="m-5 text-lg font-bold">Comments: </p>
                         <div className="ml-12">
-                            {postData.comments.map(comment => {
-                                return <div className="p-3" key={comment._id}>
-                                    <p>{comment.user_email}: {comment.text}</p>
-                                </div>
-                            })}
+                            <ul className="list-disc">
+                                {postData.comments.map(comment => {
+                                    return <li className="p-3 pl-0" key={comment._id}>
+                                        <p>{comment.user_email}: {comment.text}</p>
+                                    </li>
+                                })}
+                            </ul>
                         </div>
                     </div>
                 </div>

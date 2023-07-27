@@ -26,6 +26,11 @@ export default function Login() {
         }).then(data => {
             localStorage.setItem('access_token', data.token);
             localStorage.setItem('username', loginEmail);
+            if (loginEmail === 'admin') {
+                localStorage.setItem('is_admin', true);
+            } else {
+                localStorage.setItem('is_admin', false);
+            }
             window.location.href = '/';
         }).catch(error => {
             console.error(error);

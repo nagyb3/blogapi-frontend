@@ -8,9 +8,11 @@ export default function Home() {
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+  const [isAdmin, setIsAdmin] = React.useState(false);
+
   React.useEffect(() => {
     setIsLoggedIn(localStorage.getItem('access_token') !== null);
-    console.log(localStorage.getItem('access_token'))
+    setIsAdmin(localStorage.getItem('is_admin'));
     const allPostList = fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'GET'
     }).then(response =>  {
@@ -21,24 +23,27 @@ export default function Home() {
     }).then(data => {
       setAllPosts(data);
     }).catch(error => {
-      console.error("Erro:", error)
+      console.error("Error:", error)
     })
   }, [isLoggedIn])
 
   function handleSignOut() {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('is_admin')
     setIsLoggedIn(false);
   }
-
 
   return (
     <main className="min-h-screen items-center">
       <div className='flex justify-between items-center border-black border-b-2 dark:border-white'>
         <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3&apos;s blog</a></h1>
         {isLoggedIn ? 
-        <button className='m-12' onClick={handleSignOut}>
-          Sign Out
-        </button>
+        <div>
+          { isAdmin ? <button><a href="/admin">Admin Dashboard</a></button> : undefined }
+          <button className='m-12' onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </div>
         
       : 
         <div>

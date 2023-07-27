@@ -13,7 +13,10 @@ export default function Post(props) {
 
     const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
+    const [isAdmin, setIsAdmin] = React.useState(false);
+
     const fetchData = async() => {
+        setIsAdmin(localStorage.getItem('is_admin'));
         setIsLoggedIn(localStorage.getItem('access_token') !== null);
         const params = new URLSearchParams(window.location.search);
         const postId = params.get("postid");
@@ -59,6 +62,8 @@ export default function Post(props) {
         setIsLoggedIn(false);
     }
 
+    console.log(postData);
+
     return (
         <div className="min-h-screen">
             <div className='flex justify-between items-center border-black border-b-2 dark:border-white'>
@@ -77,6 +82,9 @@ export default function Post(props) {
             </div>
             {postData && 
                 <div>
+                    {isAdmin ? <button className="font-semibold mt-8 ml-8">
+                        <a href={`/edit?postid=${postData.post._id}`}>Edit Post-&gt;</a>
+                        </button> : undefined}
                     <div className="border-2 border-black dark:border-white p-5 bg-white dark:bg-black rounded my-8 mx-4">
                         <h1 className="font-bold text-3xl m-5">{postData.post.title}</h1>
                         <p>{HtmlReactParser(postData.post.text)}</p>

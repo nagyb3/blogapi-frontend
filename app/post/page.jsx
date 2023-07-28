@@ -80,7 +80,7 @@ export default function Post(props) {
                         </button> : undefined}
                     <div className="border-2 border-black dark:border-white p-5 bg-white dark:bg-black rounded my-8 mx-4">
                         <h1 className="font-bold text-3xl m-5">{postData.post.title}</h1>
-                        <p>{HtmlReactParser(postData.post.text)}</p>
+                        {HtmlReactParser(postData.post.text)}
                     </div>
                     <div>
                         {isLoggedIn ? 
@@ -99,13 +99,17 @@ export default function Post(props) {
                         <p className="m-5"><a href="/login">Log in to leave a comment!</a></p>
                     }
                         <div className="ml-12">
+                            { postData.comments.length === 0 ? 
+                                <p>There are no comments yet!</p>
+                            :
                             <ul className="list-disc">
                                 {postData.comments.map(comment => {
                                     return <li className="p-3 pl-0" key={comment._id}>
-                                        <p>{comment.user_email}: {comment.text}</p>
+                                        {comment.user_email}: {comment.text}
                                     </li>
                                 })}
                             </ul>
+                            }
                         </div>
                     </div>
                 </div>

@@ -36,19 +36,19 @@ export default function Home() {
   return (
     <main className="min-h-screen items-center">
       <div className='flex justify-between items-center border-black border-b-2 dark:border-white'>
-        <h1 className='text-center font-bold text-2xl p-12'><a href="/">nagyb3&apos;s blog</a></h1>
+        <h1 className='text-center font-bold text-xl md:text-2xl p-4 md:p-12 pr-0'><a href="/">nagyb3&apos;s blog</a></h1>
         {isLoggedIn ? 
         <div>
-          { isAdmin ? <button><a href="/admin">Admin Dashboard</a></button> : undefined }
-          <button className='m-12' onClick={handleSignOut}>
+          { isAdmin ? <button className='mr-6'><a href="/admin">Admin</a></button> : undefined }
+          <button className='my-10 mx-3 md:mx-12' onClick={handleSignOut}>
             Sign Out
           </button>
         </div>
         
       : 
         <div>
-          <button className='h-min m-10 bg-white p-3 rounded text-black font-bold'><a href="/signup">Sign Up</a></button>
-          <button className='m-12 font-bold'><a href="/login">Log In</a></button>
+          <button className='h-min mx-3 md:mx-10 bg-white p-3 rounded text-black font-bold'><a href="/signup">Sign Up</a></button>
+          <button className='my-10 mx-6 md:mx-12 font-bold'><a href="/login">Log In</a></button>
         </div>
       }
       </div>

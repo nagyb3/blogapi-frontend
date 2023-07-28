@@ -16,7 +16,7 @@ export default function Post(props) {
     const [isAdmin, setIsAdmin] = React.useState(false);
 
     const fetchData = async() => {
-        setIsAdmin(localStorage.getItem('is_admin'));
+        setIsAdmin(localStorage.getItem('is_admin') === 'true');
         setIsLoggedIn(localStorage.getItem('access_token') !== null);
         const params = new URLSearchParams(window.location.search);
         const postId = params.get("postid");

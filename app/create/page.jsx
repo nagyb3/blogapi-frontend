@@ -27,6 +27,9 @@ export default function Create() {
                 'title': newTitleState
             })
         }).then((response) => {
+            if (response.ok) {
+                window.location.href = '/';
+            }
             return response;
         }).then(data => {
             

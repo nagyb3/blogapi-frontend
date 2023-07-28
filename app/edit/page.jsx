@@ -15,7 +15,10 @@ export default function Edit() {
 
     const [titleState, setTitleState] = React.useState(null);
 
+    const [isAdmin, setIsAdmin] = React.useState(false);
+
     React.useEffect(() => {
+        setIsAdmin(localStorage.getItem('is_admin') === 'true')
         const params = new URLSearchParams(window.location.search);
         const postIdParam = params.get("postid");
         setPostId(postIdParam);
@@ -68,34 +71,42 @@ export default function Edit() {
 
     return (
         <div>
-            <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3&apos;s blog EDIT POST</a></h1>
-            <button className="bg-white text-black p-3 font-bold rounded block" onClick={deletePost}>DELETE THIS POST</button>
-            <label htmlFor="ispublic">Post is public:</label>
-            <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
-            <div>
-                <Editor
-                    apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
-                    onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue={postText}
-                    init={{
-                    height: 500,
-                    menubar: false,
-                    plugins: [
-                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                    ],
-                    toolbar: 'undo redo | blocks | ' +
-                        'bold italic forecolor | alignleft aligncenter ' +
-                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                        'removeformat | help',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                    }}
-                />
-            </div>
-            <button onClick={putRequest} className="m-10 bg-white text-black p-3 rounded font-bold">
-                PUT REQUEST
-            </button>
+            <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3&apos;s blog</a></h1>
+            {
+                isAdmin ? 
+                <div>
+                    <h1 className='text-center font-bold text-2xl m-10'>EDIT POST</h1>
+                    <button className="bg-white text-black p-3 font-bold rounded block" onClick={deletePost}>DELETE THIS POST</button>
+                    <label htmlFor="ispublic">Post is public:</label>
+                    <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
+                    <div>
+                        <Editor
+                            apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue={postText}
+                            init={{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                            ],
+                            toolbar: 'undo redo | blocks | ' +
+                                'bold italic forecolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | help',
+                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            }}
+                        />
+                    </div>
+                    <button onClick={putRequest} className="m-10 bg-white text-black p-3 rounded font-bold">
+                        PUT REQUEST
+                    </button>
+                </div>
+                :
+                <p className="text-center text-3xl">YOU ARE NOT ADMIN!</p>
+            }
         </div>
     )
 }

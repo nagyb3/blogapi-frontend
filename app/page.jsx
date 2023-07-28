@@ -12,7 +12,7 @@ export default function Home() {
 
   React.useEffect(() => {
     setIsLoggedIn(localStorage.getItem('access_token') !== null);
-    setIsAdmin(localStorage.getItem('is_admin'));
+    setIsAdmin(localStorage.getItem('is_admin') === 'true');
     const allPostList = fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts`, {
       method: 'GET'
     }).then(response =>  {

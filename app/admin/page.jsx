@@ -6,7 +6,7 @@ export default function Page() {
   const [isAdmin, setIsAdmin] = React.useState(true);
 
   React.useEffect(() => {
-    setIsAdmin(localStorage.getItem("is_admin"));
+    setIsAdmin(localStorage.getItem("is_admin") === 'true');
   }, []);
 
   return (

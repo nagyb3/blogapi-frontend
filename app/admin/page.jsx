@@ -10,14 +10,14 @@ export default function Page() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen">
       {isAdmin ? (
         <div className="flex flex-col items-center">
           <h1 className="text-center font-bold text-2xl p-12">
             <a href="/">nagyb3&apos;s blog</a>
           </h1>
           <h1 className="text-center font-bold text-2xl">Admin Dashboard</h1>
-          <button className="text-center m-12 bg-white text-black px-3 py-2 rounded font-semibold text-lg">
+          <button className="text-white m-12 p-4 bg-cyan-800 w-fit rounded-2xl font-semibold text-xl">
             <a href="/create">Create post</a>
           </button>
         </div>

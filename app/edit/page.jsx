@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useRef } from "react";
 import { Editor } from '@tinymce/tinymce-react';
@@ -32,11 +32,11 @@ export default function Edit() {
                 setEditedPostIsPublic(data.post.is_public);
             })
             .catch(error => {
-                console.error(error)
+                console.error(error);
             });
     }, []);
 
-    const putRequest = () => {
+    const handleEditSubmit = () => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/edit`, {
             method: "PUT",
             headers: {
@@ -58,15 +58,21 @@ export default function Edit() {
     }
 
     function deletePost() {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                postid: postId
+        if (confirm("Are you sure you want to delete this post?") === true) {
+            fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId}`, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    postid: postId
+                })
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/';
+                }
             })
-        });
+        }
     }
 
     return (
@@ -75,11 +81,15 @@ export default function Edit() {
             {
                 isAdmin ? 
                 <div>
-                    <h1 className='text-center font-bold text-2xl m-10'>EDIT POST</h1>
-                    <button className="bg-white text-black p-3 font-bold rounded block" onClick={deletePost}>DELETE THIS POST</button>
-                    <label htmlFor="ispublic">Post is public:</label>
-                    <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />               
-                    <div>
+                    <div className="flex flex-col items-center">
+                        <h1 className='font-bold text-2xl m-6 mt-0'>EDIT POST</h1>
+                        <button className="text-white m-5 p-3 bg-cyan-800 w-fit rounded-2xl text-base text-base" onClick={deletePost}>DELETE THIS POST</button>
+                        <div className="m-5 text-center flex gap-3">
+                            <label htmlFor="ispublic">Post is public:</label>
+                            <input onChange={() => setEditedPostIsPublic(!editedPostIsPublic)} type="checkbox" name="ispublic" id="ispublic" checked={editedPostIsPublic} />                   
+                        </div>
+                    </div>
+                    <div className="mx-7">
                         <Editor
                             apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
                             onInit={(evt, editor) => editorRef.current = editor}
@@ -100,9 +110,11 @@ export default function Edit() {
                             }}
                         />
                     </div>
-                    <button onClick={putRequest} className="m-10 bg-white text-black p-3 rounded font-bold">
-                        PUT REQUEST
-                    </button>
+                    <div className="flex justify-center">
+                        <button onClick={handleEditSubmit} className="text-white m-5 p-3 bg-cyan-800 w-fit rounded-2xl font-bold">
+                            SAVE EDITED POST
+                        </button>
+                    </div>
                 </div>
                 :
                 <p className="text-center text-3xl">YOU ARE NOT ADMIN!</p>

@@ -2,18 +2,19 @@
 
 import React, { useRef } from "react";
 import { Editor } from '@tinymce/tinymce-react';
+import { sign } from "crypto";
 
 export default function Create() {
     
     const editorRef = useRef(null);
 
-    const [browserHasAccessToken, setBrowserHasAccessToken] = React.useState(false);
-
     const [newTitleState, setNewTitleState] = React.useState("");
 
+    const [isAdmin, setIsAdmin] = React.useState(false);
+
     React.useEffect(() => {
-        
-    }, [browserHasAccessToken])
+        setIsAdmin(localStorage.getItem('is_admin') === 'true');
+    }, [])
 
     const submitPost = () => {
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/create`, { 
@@ -38,55 +39,43 @@ export default function Create() {
         });
     };
 
-    const login = () => {
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
-            method: "POST"
-        }).then(response => {
-            return response.json();
-        }).then(data => {
-            localStorage.setItem('access_token', data.token)
-            setBrowserHasAccessToken(true);
-        }).catch(error => {
-            console.error(error)
-        })
-    }
-
-    const logout = () => {
-        localStorage.removeItem('access_token');
-        setBrowserHasAccessToken(false);
-    }
-
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center min-w-full p-10 gap-5">
-            <h1 className="font-bold text-2xl">Make Blog Post</h1>
-            <div className="max-w-7xl flex flex-col items-center justify-center gap-5">
+        <div className={isAdmin ? "min-h-screen flex flex-col items-center justify-center min-w-full p-10 gap-5" : "flex flex-col items-center"}>
+            <h1 className='text-center font-bold text-2xl m-10'><a href="/">nagyb3&apos;s blog</a></h1>
+            {
+                isAdmin ?
                 <div>
-                    <label htmlFor="title">TITLE OF THE POST:</label>
-                    <input className="text-black" onChange={e => setNewTitleState(e.target.value)} value={newTitleState} type="text" name="title" id="title" />
+                    <h1 className="font-bold text-2xl text-center">Make Blog Post</h1>
+                    <div className="max-w-7xl flex flex-col items-center justify-center gap-5">
+                        <div>
+                            <label htmlFor="title">TITLE OF THE POST:</label>
+                            <input className="text-black" onChange={e => setNewTitleState(e.target.value)} value={newTitleState} type="text" name="title" id="title" />
+                        </div>
+                        <Editor
+                            apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
+                            onInit={(evt, editor) => editorRef.current = editor}
+                            initialValue="<p>This is the initial content of the editor.</p>"
+                            init={{
+                            height: 500,
+                            menubar: false,
+                            plugins: [
+                                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                                'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                                'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                            ],
+                            toolbar: 'undo redo | blocks | ' +
+                                'bold italic forecolor | alignleft aligncenter ' +
+                                'alignright alignjustify | bullist numlist outdent indent | ' +
+                                'removeformat | help',
+                            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                            }}
+                        />
+                        <button className="text-white m-2 p-3 bg-cyan-800 w-fit rounded-2xl font-bold" onClick={submitPost}>SUBMIT POST</button>
+                    </div>
                 </div>
-                <Editor
-                    apiKey='9utnb2ang81zj7r55a0smpbengk80fx7utcnliw8bielweiy'
-                    onInit={(evt, editor) => editorRef.current = editor}
-                    initialValue="<p>This is the initial content of the editor.</p>"
-                    init={{
-                    height: 500,
-                    menubar: false,
-                    plugins: [
-                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                    ],
-                    toolbar: 'undo redo | blocks | ' +
-                        'bold italic forecolor | alignleft aligncenter ' +
-                        'alignright alignjustify | bullist numlist outdent indent | ' +
-                        'removeformat | help',
-                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-                    }}
-                />
-                <button className="text-white m-2 p-3 bg-cyan-800 w-fit rounded-2xl font-bold" onClick={submitPost}>SUBMIT POST</button>
-            </div>
-            <button onClick={login}>LOGIN</button>
-            <button onClick={logout}>LOGOUT</button>
+                : 
+                <p className="text-center text-3xl">YOU ARE NOT ADMIN!</p>
+            }
         </div>
     )
 }
